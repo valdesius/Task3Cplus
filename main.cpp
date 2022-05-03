@@ -1,23 +1,50 @@
 #include <iostream>
+#include <string.h>
+
 using namespace std;
 
-void transform(char *str) {
-    int count = 1;
+string* getArray(int numberOfElements, string* arr)
+{
+    string* newArr = new string[numberOfElements * 2];
+    for (int i = 0; i < numberOfElements; i++)
+    {
+        *(newArr + i * 2) = *(arr + i);
+        *(newArr + (2 * i + 1)) = *(arr + i);
 
-    for (int i = 1; str[i]!=0; i++) {
-        if (str[count] % 3 == 0){
-            cout << str[count];
-        }
-
-        count = count + 1;
     }
+    return newArr;
 }
 
 int main() {
-    char sourceArr[] = "abcdef";
-    char *str = sourceArr;
-    transform(str);
+    int size;
+    cout << "Enter the size of array: "<<endl;
+    cin >> size;
+    char sourceArr[size];
+    cout << "Enter the string: " << endl;
+    cin >> sourceArr;
+
+    int lengthSrcArr = strlen(sourceArr);
+    char *vector = sourceArr;
+
+    getArray(size, vector);
+
+    int lengthFinalArr = lengthSrcArr / 3;
+    char *finalVec = new char[lengthFinalArr];
+
+
+    int temp = 0;
+    int rep = 2;
+    for (int i = 0; i < lengthSrcArr; i++) {
+        *(finalVec + temp) = *(vector + i + rep);
+        rep += 2;
+        temp += 1;
+
+    }
+    finalVec[lengthFinalArr] = '\0';
+
+    cout << "Final array: ";
+    for (int i = 0; i < lengthFinalArr; i++) {
+        cout << finalVec[i];
+    }
     return 0;
 }
-
-
